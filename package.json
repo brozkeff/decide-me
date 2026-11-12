@@ -26,5 +26,6 @@
     "typescript": "~6.0.3",
     "vite": "^8.3.6",
     "vue-tsc": "^3.3.14"
-  }
+  },
+  "license": "MIT"
 }

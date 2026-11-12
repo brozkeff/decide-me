@@ -90,7 +90,7 @@ Decision weights: [Laya GGUF](https://huggingface.co/ggml-org/Laya-GGUF).
 These new weight distributions are Apache-2.0; upstream source licenses remain in the submodules.
 
 The app's screen in a desktop browser, with the answers d1 2B gave for these two photos through the
-same library. Not a phone yet. Photos: Lairich Rig and M J Richardson, CC BY-SA 2.0, via Geograph and
+same library. Upstream reports the original d1 models running on a Pixel 8a in a few seconds; this is not a SmolVLM → Laya timing. Photos: Lairich Rig and M J Richardson, CC BY-SA 2.0, via Geograph and
 Wikimedia Commons ([bench](https://commons.wikimedia.org/wiki/File:Bench_beside_path_-_geograph.org.uk_-_4114984.jpg),
 [tram stop](https://commons.wikimedia.org/wiki/File:Princes_Street_tram_stop,_Edinburgh.jpg)).
 

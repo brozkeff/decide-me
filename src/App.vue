@@ -74,6 +74,8 @@ function visibilityChanged() {
   if (document.hidden) {
     auto.value = false
     if (timer) { clearTimeout(timer); timer = null }
+  } else if (!busy.value) {
+    void ensureCamera()
   }
 }
 onMounted(async () => {
@@ -87,12 +89,33 @@ onMounted(async () => {
   if (first) await useModel(first)
   else picking.value = true
 })
+
 onBeforeUnmount(() => {
   if (timer) clearTimeout(timer)
   document.removeEventListener('visibilitychange', visibilityChanged)
-  void unload()
+  if (isNative) void unload().catch(() => { /* native cleanup on teardown */ })
   stream?.getTracks().forEach((t) => t.stop())
 })
+
+// The live picture can die while the model works (a slower phone drops the camera stream under load), and the
+// preview then stays frozen on its last frame. Before every look, and on coming back to the app: is the track
+// still live and the video playing? If not, start the camera again.
+let cameraRecovery: Promise<void> | null = null
+async function ensureCamera() {
+  if (document.hidden) return
+  if (cameraRecovery) return cameraRecovery
+  cameraRecovery = (async () => {
+    const track = stream?.getVideoTracks()[0]
+    if (track?.readyState === 'live' && !track.muted) {
+      if (!videoEl.value?.paused) return
+      try { await videoEl.value.play(); return } catch { /* reopen below */ }
+    }
+    stream?.getTracks().forEach(t => t.stop())
+    stream = null
+    await startCamera()
+  })()
+  try { await cameraRecovery } finally { cameraRecovery = null }
+}
 
 async function startCamera() {
   try {
@@ -162,8 +185,10 @@ function grayPicture(): string {
 
 // the main button: with an answer on screen it goes back to the live camera, otherwise it asks
 function press() {
-  if (still.value && !busy.value) still.value = ''
-  else ask()
+  if (still.value && !busy.value) {
+    still.value = ''
+    ensureCamera()
+  } else ask()
 }
 
 async function ask() {
@@ -171,6 +196,8 @@ async function ask() {
   error.value = ''
   busy.value = true
   try {
+    await ensureCamera()
+    if (document.hidden) return
     const image = grab()
     last.value = null
     still.value = image
