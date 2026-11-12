@@ -8,7 +8,8 @@
     "build": "vue-tsc -b && vite build",
     "preview": "vite preview",
     "build:bindings": "npm run build --prefix vendor/kneejerk/bindings/capacitor",
-    "prebuild": "npm run build:bindings"
+    "prebuild": "npm run build:bindings",
+    "test": "node --experimental-strip-types --test tests/*.test.mjs"
   },
   "dependencies": {
     "@capacitor/android": "^8.6.0",

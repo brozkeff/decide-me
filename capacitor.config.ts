@@ -1,8 +1,8 @@
 import type { CapacitorConfig } from '@capacitor/cli'
 
 const config: CapacitorConfig = {
-  appId: 'com.moudrkat.decideme',
-  appName: 'decide me',
+  appId: 'net.brozkeff.decideme',
+  appName: 'decide me · brozkeff',
   webDir: 'dist',
 }
 
