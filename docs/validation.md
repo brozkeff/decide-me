@@ -53,3 +53,19 @@ choice IDs and selected `activity` with probability 0.8762 (four directions: 0.0
 0.0307, 0.0298, 0.0268). This validates the interface on one example, not image recognition
 or probability calibration. The run reported 8.67 seconds under concurrent compilation;
 it is not a representative latency benchmark.
+
+The two real photographs were also processed sequentially through the same host JNI
+vision context, then their generated descriptions and activities were passed to Laya.
+Both passed application validation; Laya returned all five expected probabilities and
+ranked the proposed activity first in both examples. Raw results are in
+[`vision_laya_smoke_2026-11-12.json`](../calibration/vision_laya_smoke_2026-11-12.json).
+The bench suggestion was “looking out at the view”; the transit scene produced the awkward
+“opened a ticket machine”. These examples establish a working pipeline, not improved
+suggestion quality. The uncertainty field was also poorly used (“yes” on the transit image).
+Vision took 30.07/38.23 seconds during concurrent compilation; these are desktop smoke-test
+observations, not representative latency measurements.
+
+The arm64 debug APK built successfully after enabling standalone mtmd and position-independent
+static library code. Android tooling verified its v2 signature, fork package identity,
+version suffix, bundled vision and decision JNI libraries, and packaged web assets.
+No physical-device inference or signed-release upgrade was tested.

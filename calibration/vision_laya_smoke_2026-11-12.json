@@ -1,0 +1,72 @@
+{
+  "date": "2026-11-12",
+  "platform": "Linux desktop CPU, concurrent compilation; not phone benchmarks",
+  "source_commit": "af9ddaf",
+  "runtime": "Pinned kneejerk/llama.cpp; host JNI vision bridge linked to the same pinned dynamic llama/mtmd libraries",
+  "examples": [
+    {
+      "image": "docs/demo/g_bench_02.jpg",
+      "scene": {
+        "description": "a bench in a green field with bushes and flowers, behind it are trees and mountains, the sky is cloudy and blue",
+        "uncertainty": "the bench is not in use",
+        "action": "looking out at the view",
+        "evidence": "mountains"
+      },
+      "vision_seconds": 30.07,
+      "decision": {
+        "model": "Laya-Q8_0.gguf",
+        "answers": {
+          "decision": {
+            "type": "choice",
+            "choice": "activity",
+            "probabilities": {
+              "left": 0.2122202405731698,
+              "right": 0.14211073421549433,
+              "forward": 0.07834695513548771,
+              "back": 0.18914538082587684,
+              "activity": 0.37817668924997144
+            },
+            "confidence": 0.2227208615624643
+          }
+        },
+        "usage": {
+          "input_tokens": 140,
+          "output_tokens": 0
+        },
+        "_wall_ms": 2557.737229
+      }
+    },
+    {
+      "image": "docs/demo/g_busstop_04.jpg",
+      "scene": {
+        "description": "a small, cobbled street with a sign that says 'tions' on it',",
+        "uncertainty": "yes",
+        "action": "opened a ticket machine",
+        "evidence": "a ticket machine is on the curb"
+      },
+      "vision_seconds": 38.23,
+      "decision": {
+        "model": "Laya-Q8_0.gguf",
+        "answers": {
+          "decision": {
+            "type": "choice",
+            "choice": "activity",
+            "probabilities": {
+              "left": 0.11086964210731176,
+              "right": 0.09769664010636975,
+              "forward": 0.07740031099176671,
+              "back": 0.12434496766732779,
+              "activity": 0.589688439127224
+            },
+            "confidence": 0.48711054890903
+          }
+        },
+        "usage": {
+          "input_tokens": 133,
+          "output_tokens": 0
+        },
+        "_wall_ms": 2341.524505
+      }
+    }
+  ]
+}
